@@ -21,7 +21,7 @@ data into memory. This can take some time for large VCF files.
 Depending on your downstream applications, it can be useful to include
 a reference fasta, a gtf file location, or the location of the 
 sam/bamfile used to create the vcf file. These can be optionally specified 
-in the inital VCF import:: python
+in the inital VCF import::
 
    vcf_file = VCF('myvcf.vcf', 
                   refFile='my_ref.fasta',
