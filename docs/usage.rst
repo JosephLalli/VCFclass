@@ -5,6 +5,8 @@ Typical Workflow
 Opening a file
 ==============
 
+.. highlight:: python
+
 To begin, import the VCFclass module and open a
 :class:`VCFclass.AlignmentFile`::
 
@@ -30,7 +32,7 @@ in the inital VCF import:: python
 Annotating a VCF file
 =====================
 
-code-block:: python
+.. code-block:: python
 
    myVCF = myVCF.annotate(gtf_file=my_gtf_file.gtf)
 
@@ -39,17 +41,17 @@ Assign bamfiles to VCF file
 
 Bamfiles can be provided through :meth:`VCFclass.VCF.add_bamfile_locations` in one of three ways.
 
-If only one sample is present in the VCF:: python
+If only one sample is present in the VCF::
 
    myVCF.add_bamfile_locations('sample_bamfile.bam')
 
 If multiple samples are present in the VCF, and you are sure of their
-order in the VCF file:: python
+order in the VCF file::
 
    myVCF.add_bamfile_locations(['sample1_bamfile.bam', 'sample2_bamfile.bam']
 
 If multiple samples are present in the VCF and you are *not* sure of their
-order in the VCF file:: python
+order in the VCF file::
 
    myVCF.add_bamfile_locations({'sample1': 'sample1_bamfile.bam', 'sample2': 'sample2_bamfile.bam'}
 
@@ -66,27 +68,27 @@ The default options should apply most of the time. For more information see :met
 Combining multiple VCF files into one multi-sample VCF
 ======================================================
 
-code-block:: python
+code-block::
 
    myVCF.merge(my_other_VCF)
 
 Averaging VCF files from technical replicates
 =============================================
 
-code-block:: python
+code-block::
 
    myVCF.average(my_other_VCF)
 
 Exporting VCF data as Pandas dataframe
 ======================================
 
-code-block:: python
+code-block::
 
    myVCF_DF = myVCF.to_dataframe()
 
 Export per-nucleotide read counts to numpy array
 ================================================
 
-code-block:: python
+code-block::
 
    myVCF_array = myVCF.to_numpy()
