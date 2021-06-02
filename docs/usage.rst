@@ -1,11 +1,11 @@
+.. highlight:: python
+
 =========================================
 Typical Workflow
 =========================================
 
 Opening a file
 ==============
-
-.. highlight:: python
 
 To begin, import the VCFclass module and open a
 :class:`VCFclass.AlignmentFile`::
@@ -32,7 +32,8 @@ in the inital VCF import:: python
 Annotating a VCF file
 =====================
 
-.. :: python
+::
+
    myVCF = myVCF.annotate(gtf_file=my_gtf_file.gtf)
 
 Assign bamfiles to VCF file
@@ -57,7 +58,7 @@ order in the VCF file::
 Applying the in-read position filter to a VCF file
 ==================================================
 
-First, annotate VCF and add bamfiles to the VCF. Then run :meth:`VCFclass.VCF.apply_position_filter`:: python
+First, annotate VCF and add bamfiles to the VCF. Then run :meth:`VCFclass.VCF.apply_position_filter`::
 
    myVCF.apply_position_filter()
 
