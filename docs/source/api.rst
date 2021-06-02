@@ -1,5 +1,5 @@
 ======================================================
-VCFclass - An interface for reading and writing SAM files
+VCFclass - An interface for interacting with VCF files
 ======================================================
 
 Introduction
