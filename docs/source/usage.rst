@@ -21,15 +21,18 @@ data into memory. This can take some time for large VCF files.
 Depending on your downstream applications, it can be useful to include
 a reference fasta, a gtf file location, or the location of the 
 sam/bamfile used to create the vcf file. These can be optionally specified 
-in the inital VCF import::
+in the inital VCF import:: python
 
-   vcf_file = VCF('myvcf.vcf', refFile='my_ref.fasta', gtfFile='my_gtf.gtf', bamfiles='my_bamfile.bam')
+   vcf_file = VCF('myvcf.vcf', 
+                  refFile='my_ref.fasta',
+                  gtfFile='my_gtf.gtf',
+                  bamfiles='my_bamfile.bam')
 
 
 Annotating a VCF file
 =====================
 
-::
+code-block:: python
 myVCF = myVCF.annotate(gtf_file=my_gtf_file.gtf)
 
 Assign bamfiles to VCF file
@@ -37,24 +40,24 @@ Assign bamfiles to VCF file
 
 Bamfiles can be provided through :meth:`VCFclass.VCF.add_bamfile_locations` in one of three ways.
 
-If only one sample is present in the VCF::
+If only one sample is present in the VCF:: python
 
 myVCF.add_bamfile_locations('sample_bamfile.bam')
 
 If multiple samples are present in the VCF, and you are sure of their
-order in the VCF file::
+order in the VCF file:: python
 
 myVCF.add_bamfile_locations(['sample1_bamfile.bam', 'sample2_bamfile.bam']
 
 If multiple samples are present in the VCF and you are *not* sure of their
-order in the VCF file::
+order in the VCF file:: python
 
 myVCF.add_bamfile_locations({'sample1': 'sample1_bamfile.bam', 'sample2': 'sample2_bamfile.bam'}
 
 Applying the in-read position filter to a VCF file
 ==================================================
 
-First, annotate VCF and add bamfiles to the VCF. Then run :meth:`VCFclass.VCF.apply_position_filter`::
+First, annotate VCF and add bamfiles to the VCF. Then run :meth:`VCFclass.VCF.apply_position_filter`:: python
 
 myVCF.apply_position_filter()
 
@@ -64,23 +67,23 @@ The default options should apply most of the time. For more information see :met
 Combining multiple VCF files into one multi-sample VCF
 ======================================================
 
-::
+code-block:: python
 myVCF.merge(my_other_VCF)
 
 Averaging VCF files from technical replicates
 =============================================
 
-::
+code-block:: python
 myVCF.average(my_other_VCF)
 
 Exporting VCF data as Pandas dataframe
 ======================================
 
-::
+code-block:: python
 myVCF_DF = myVCF.to_dataframe()
 
 Export per-nucleotide read counts to numpy array
 ================================================
 
-::
+code-block:: python
 myVCF_array = myVCF.to_numpy()

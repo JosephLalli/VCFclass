@@ -14,13 +14,13 @@ This page provides a quick introduction in using VCFclass followed by the
 API. See :ref:`usage` for walkthroughs of typical usage cases.
 
 To use the module to read a file in BAM format, create a
-:class:`~VCFclass.VCF` object::
+:class:`~VCFclass.VCF` object:: python
 
    import VCFclass
    my_vcf = VCFclass.VCF("my_vcf.vcf")
 
 Once a file is opened you can directly iterate over mutation calls
-in the VCF file::
+in the VCF file:: python
 
     for mut in my_vcf:
         do_something
