@@ -1,4 +1,0 @@
-pysam
-numpy
-pandas
-biopython
