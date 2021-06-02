@@ -183,7 +183,7 @@ in the VCF file:: python</p>
 </div></blockquote>
 <p>Each iteration returns a <a class="reference internal" href="#VCFclass.MutCall" title="VCFclass.MutCall"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutCall</span></code></a> object.</p>
 <p>An alternative way of accessing the data in a VCF file is by
-calling <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_dataframe()</span></code> method. This function
+calling <a class="reference internal" href="#VCFclass.VCF.to_dataframe" title="VCFclass.VCF.to_dataframe"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_dataframe()</span></code></a> method. This function
 returns a dataframe containing one row per sample per mutation.
 Each row contains information about the mutation call (position,
 ref, alt, etc.) along with information specific to each sample
@@ -212,7 +212,46 @@ at all times unless a format specifies 1-based coordinates.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="VCFclass.VCF">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">VCFclass.</span></span><span class="sig-name descname"><span class="pre">VCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtfFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bamfiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.VCF.averageSamples">
+<span class="sig-name descname"><span class="pre">averageSamples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampleA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampleB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newSampleName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF.averageSamples" title="Permalink to this definition">¶</a></dt>
+<dd><p>take intersection of mutations and average their coverages/frequencies etc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.VCF.averageWithVCF">
+<span class="sig-name descname"><span class="pre">averageWithVCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">otherVCF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newSampleName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF.averageWithVCF" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>assumes one sample per vcf</em>
+take intersection of mutations and average their coverages/frequencies etc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.VCF.removemut">
+<span class="sig-name descname"><span class="pre">removemut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF.removemut" title="Permalink to this definition">¶</a></dt>
+<dd><p>muts are stored in self.mutations and self._hashedmuts.
+this removes all muts w/ chrom and pos from both lists.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.VCF.renameSample">
+<span class="sig-name descname"><span class="pre">renameSample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF.renameSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>update name of sample origname in both list of samples (self.samples)
+and in all mutations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.VCF.to_dataframe">
+<span class="sig-name descname"><span class="pre">to_dataframe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF.to_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>export VCF as tidy dataframe</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.VCF.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns list of dictionaries. Each dictionary is ‘property’:value for each snp in each sample.</p>
+</dd></dl>
+
+</dd></dl>
 
 <p>An <a class="reference internal" href="#VCFclass.MutCall" title="VCFclass.MutCall"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutCall</span></code></a> represents one row of a VCF file.</p>
 <dl class="py class">

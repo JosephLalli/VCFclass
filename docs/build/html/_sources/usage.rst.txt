@@ -33,7 +33,8 @@ Annotating a VCF file
 =====================
 
 code-block:: python
-myVCF = myVCF.annotate(gtf_file=my_gtf_file.gtf)
+
+   myVCF = myVCF.annotate(gtf_file=my_gtf_file.gtf)
 
 Assign bamfiles to VCF file
 ===========================
@@ -42,24 +43,24 @@ Bamfiles can be provided through :meth:`VCFclass.VCF.add_bamfile_locations` in o
 
 If only one sample is present in the VCF:: python
 
-myVCF.add_bamfile_locations('sample_bamfile.bam')
+   myVCF.add_bamfile_locations('sample_bamfile.bam')
 
 If multiple samples are present in the VCF, and you are sure of their
 order in the VCF file:: python
 
-myVCF.add_bamfile_locations(['sample1_bamfile.bam', 'sample2_bamfile.bam']
+   myVCF.add_bamfile_locations(['sample1_bamfile.bam', 'sample2_bamfile.bam']
 
 If multiple samples are present in the VCF and you are *not* sure of their
 order in the VCF file:: python
 
-myVCF.add_bamfile_locations({'sample1': 'sample1_bamfile.bam', 'sample2': 'sample2_bamfile.bam'}
+   myVCF.add_bamfile_locations({'sample1': 'sample1_bamfile.bam', 'sample2': 'sample2_bamfile.bam'}
 
 Applying the in-read position filter to a VCF file
 ==================================================
 
 First, annotate VCF and add bamfiles to the VCF. Then run :meth:`VCFclass.VCF.apply_position_filter`:: python
 
-myVCF.apply_position_filter()
+   myVCF.apply_position_filter()
 
 The default options should apply most of the time. For more information see :meth:`VCFclass.VCF.apply_position_filter`.
 
@@ -68,22 +69,26 @@ Combining multiple VCF files into one multi-sample VCF
 ======================================================
 
 code-block:: python
-myVCF.merge(my_other_VCF)
+
+   myVCF.merge(my_other_VCF)
 
 Averaging VCF files from technical replicates
 =============================================
 
 code-block:: python
-myVCF.average(my_other_VCF)
+
+   myVCF.average(my_other_VCF)
 
 Exporting VCF data as Pandas dataframe
 ======================================
 
 code-block:: python
-myVCF_DF = myVCF.to_dataframe()
+
+   myVCF_DF = myVCF.to_dataframe()
 
 Export per-nucleotide read counts to numpy array
 ================================================
 
 code-block:: python
-myVCF_array = myVCF.to_numpy()
+
+   myVCF_array = myVCF.to_numpy()
