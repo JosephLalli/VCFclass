@@ -13,7 +13,7 @@
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__name__), '..'))
-print (os.path.getcwd())
+print (os.getcwd())
 
 
 # -- Project information -----------------------------------------------------
