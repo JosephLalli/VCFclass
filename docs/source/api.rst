@@ -55,19 +55,23 @@ SNP filter, are at :ref:`usage`.
 
 API
 ===
-
-An :class:`~VCFclass.VCF` represents a whole VCF file.
-
 .. automodule:: VCFclass
    :members:
 
-.. An :class:`~VCFclass.MutCall` represents one row of a VCF file.
+An :class:`~VCFclass.VCF` represents a whole VCF file.
 
-.. .. autoclass:: VCFclass.MutCall
-..    :members:
+.. autoclass:: VCFclass.VCF
 
-.. An :class:`~VCFclass.SampMut` represents information about a 
-.. mutation that is specific to an individual sample.
+An :class:`~VCFclass.MutCall` represents one row of a VCF file.
 
-.. .. autoclass:: VCFclass.Header
-..    :members:
+.. autoclass:: VCFclass.MutCall
+   :members:
+
+An :class:`~VCFclass.SampleMut` represents information about a 
+mutation that is specific to an individual sample.
+
+.. autoclass:: VCFclass.SampleMut
+   :members:
+
+.. autoclass:: VCFclass.Header
+   :members:

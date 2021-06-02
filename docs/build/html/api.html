@@ -87,7 +87,7 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">VCFclass - An interface for interacting with VCF files</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-VCFclass">API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Typical Workflow</a></li>
@@ -168,7 +168,7 @@ files typical of viral sequencing data.</p>
 <p>This page provides a quick introduction in using VCFclass followed by the
 API. See <a class="reference internal" href="usage.html#usage"><span class="std std-ref">Typical Workflow</span></a> for walkthroughs of typical usage cases.</p>
 <p>To use the module to read a file in BAM format, create a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">VCF</span></code> object:: python</p>
+<a class="reference internal" href="#VCFclass.VCF" title="VCFclass.VCF"><code class="xref py py-class docutils literal notranslate"><span class="pre">VCF</span></code></a> object:: python</p>
 <blockquote>
 <div><p>import VCFclass
 my_vcf = VCFclass.VCF(“my_vcf.vcf”)</p>
@@ -181,7 +181,7 @@ in the VCF file:: python</p>
 </dd>
 </dl>
 </div></blockquote>
-<p>Each iteration returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">MutCall</span></code> object.</p>
+<p>Each iteration returns a <a class="reference internal" href="#VCFclass.MutCall" title="VCFclass.MutCall"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutCall</span></code></a> object.</p>
 <p>An alternative way of accessing the data in a VCF file is by
 calling <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_dataframe()</span></code> method. This function
 returns a dataframe containing one row per sample per mutation.
@@ -206,10 +206,51 @@ coordinates.</p>
 at all times unless a format specifies 1-based coordinates.</p>
 </div>
 </div>
-<div class="section" id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<p>An <code class="xref py py-class docutils literal notranslate"><span class="pre">VCF</span></code> represents a whole VCF file.</p>
-<span class="target" id="module-VCFclass"></span></div>
+<div class="section" id="module-VCFclass">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-VCFclass" title="Permalink to this headline">¶</a></h2>
+<p>An <a class="reference internal" href="#VCFclass.VCF" title="VCFclass.VCF"><code class="xref py py-class docutils literal notranslate"><span class="pre">VCF</span></code></a> represents a whole VCF file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="VCFclass.VCF">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">VCFclass.</span></span><span class="sig-name descname"><span class="pre">VCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtfFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bamfiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.VCF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An <a class="reference internal" href="#VCFclass.MutCall" title="VCFclass.MutCall"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutCall</span></code></a> represents one row of a VCF file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="VCFclass.MutCall">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">VCFclass.</span></span><span class="sig-name descname"><span class="pre">MutCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.MutCall" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.MutCall.apply_pos_filter">
+<span class="sig-name descname"><span class="pre">apply_pos_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removeFails</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snp_frequency_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_read_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_base_quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_mapping_quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'snp_filter_log.log'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.MutCall.apply_pos_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>given pysam alignment object and relevent sample, determine whether average
+in-read positions for ref and alt alleles come from different distributions.
+If so, it sets that sample’s minority allele read ct to 0 (since these are presumed to be alignment errors).
+If that means the ref allele is 100%, the sample is removed from the mutation.
+If that means the alt allele is 100%, the sample is retained with updated statistics.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>An <a class="reference internal" href="#VCFclass.SampleMut" title="VCFclass.SampleMut"><code class="xref py py-class docutils literal notranslate"><span class="pre">SampleMut</span></code></a> represents information about a
+mutation that is specific to an individual sample.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="VCFclass.SampleMut">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">VCFclass.</span></span><span class="sig-name descname"><span class="pre">SampleMut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatinfo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.SampleMut" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="VCFclass.SampleMut.zeroOut">
+<span class="sig-name descname"><span class="pre">zeroOut</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.SampleMut.zeroOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>If a sample fails a filter or otherwise needs to be deleted in only one sample,
+it’s zero-ed out so that it’s blank. Importantly, deleting a sample from one mutation
+is different than deleting a sample from the whole vcf.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="VCFclass.Header">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">VCFclass.</span></span><span class="sig-name descname"><span class="pre">Header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headertext</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#VCFclass.Header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 </div>
 
 
