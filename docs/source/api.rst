@@ -61,7 +61,8 @@ API
 An :class:`~VCFclass.VCF` represents a whole VCF file.
 
 .. autoclass:: VCFclass.VCF
-
+   :members:
+   
 An :class:`~VCFclass.MutCall` represents one row of a VCF file.
 
 .. autoclass:: VCFclass.MutCall

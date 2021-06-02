@@ -38,12 +38,3 @@ Contents
    api.rst
    usage.rst
    installation.rst
-
-Indices and tables
-------------------
-
-Contents:
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
