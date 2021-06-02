@@ -57,22 +57,26 @@ API
 ===
 .. automodule:: VCFclass
    :members:
-
+   :undoc-members:
 An :class:`~VCFclass.VCF` represents a whole VCF file.
 
 .. autoclass:: VCFclass.VCF
    :members:
-   
+   :undoc-members:
+
 An :class:`~VCFclass.MutCall` represents one row of a VCF file.
 
 .. autoclass:: VCFclass.MutCall
    :members:
+   :undoc-members:
 
 An :class:`~VCFclass.SampleMut` represents information about a 
 mutation that is specific to an individual sample.
 
 .. autoclass:: VCFclass.SampleMut
    :members:
+   :undoc-members:
 
 .. autoclass:: VCFclass.Header
    :members:
+   :undoc-members:
