@@ -32,8 +32,7 @@ in the inital VCF import:: python
 Annotating a VCF file
 =====================
 
-.. code-block:: python
-
+.. :: python
    myVCF = myVCF.annotate(gtf_file=my_gtf_file.gtf)
 
 Assign bamfiles to VCF file
@@ -68,27 +67,27 @@ The default options should apply most of the time. For more information see :met
 Combining multiple VCF files into one multi-sample VCF
 ======================================================
 
-code-block::
+::
 
    myVCF.merge(my_other_VCF)
 
 Averaging VCF files from technical replicates
 =============================================
 
-code-block::
+::
 
    myVCF.average(my_other_VCF)
 
 Exporting VCF data as Pandas dataframe
 ======================================
 
-code-block::
+::
 
    myVCF_DF = myVCF.to_dataframe()
 
 Export per-nucleotide read counts to numpy array
 ================================================
 
-code-block::
+::
 
    myVCF_array = myVCF.to_numpy()
