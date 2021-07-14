@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: VCFclass
+Version: 0.2
+Summary: A python class to automate common vcf workflows and integrate vcf files with other python packages.
+Home-page: https://github.com/josephlalli/vcfclass
+Author: Joseph Lalli
+Author-email: lalli@wisc.edu
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Project-URL: Documentation, https://vcfclass.readthedocs.io/en/latest/
+Description: # VCFClass
+        
+        This is a package that allows for easy interaction between VCF files and tools in the Python bioscience ecosystem (pandas, numpy, matplotlib, etc).
+        
+Keywords: python,VCF
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

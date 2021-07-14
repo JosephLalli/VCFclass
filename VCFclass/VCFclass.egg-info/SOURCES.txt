@@ -1,0 +1,10 @@
+MANIFEST.in
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+VCFclass/VCFclass.egg-info/PKG-INFO
+VCFclass/VCFclass.egg-info/SOURCES.txt
+VCFclass/VCFclass.egg-info/dependency_links.txt
+VCFclass/VCFclass.egg-info/requires.txt
+VCFclass/VCFclass.egg-info/top_level.txt

@@ -12,7 +12,6 @@ import numpy as np
 def importVCF(location):
 	return VCF(location)
 
-
 class VCF:
 	def __init__(self, location, refFile=None, gtfFile=None, bamfiles={}):
 		self.vcfFileName = location
@@ -180,7 +179,13 @@ class VCF:
 		return [mutation for mutation in self.mutations
 				if (mutation.chrom == chrom and mutation.pos >= start and mutation.pos < end)]
 
-	def apply_position_filter(self, removeFails=True, signifigance_at=0.05, removeFailsMethod='Bonferroni', in_read_cutoff=0.1, freq_cutoff=0.01):
+	def apply_position_filter(self, removeFails=True, signifigance_at=0.05, removeFailsMethod='Bonferroni', freq_cutoff=0.01,
+							  in_read_cutoff=0, min_base_quality=30, min_mapping_quality=10, log_loc='snp_filter_log.log', 
+						 	  adjust_freq=True, stats_method='bootstrap'):
+		
+		pos_filter_kwargs={'removeFails':removeFails,'signifigance_at':signifigance_at,'removeFailsMethod':removeFailsMethod,'freq_cutoff':freq_cutoff,
+						   'in_read_cutoff':in_read_cutoff,'min_base_quality':min_base_quality,'min_mapping_quality':min_mapping_quality,'log_loc':log_loc, 
+						   'adjust_freq':adjust_freq, 'stats_method':stats_method}
 		if removeFailsMethod == 'Bonferroni':
 			# Number of comparisons that will be made is number of mutations * number of samples
 			df = self.to_dataframe()
@@ -196,7 +201,7 @@ class VCF:
 			except KeyError:
 				print (f'''Position filter requires the original bamfile from which SNPs were called.\n
 						  Bamfile for sample {sample} is missing.)''')
-				print ("You can add the bamfile by using vcf.add_bamfile_locations(format: {sample:bamfileLocation})")
+				print (f"You can add the bamfile by using vcf.add_bamfile_locations(format: {sample:bamfileLocation})")
 			bam = pysam.AlignmentFile(bamfile, 'rb')
 			print (f'Processing {sample}')
 			# origMuts = len(self.mutations)
@@ -206,7 +211,7 @@ class VCF:
 					# RD = samp.RD
 					# AD = samp.AD
 					if .5 - abs(.5 - samp.freq) > freq_cutoff:
-						pos_filter_result = mut.apply_pos_filter(bam, sample, self.pval_cutoff, removeFails, in_read_cutoff)
+						pos_filter_result = mut.apply_pos_filter(bam, sample, **method_kwargs)
 					else:
 						continue
 					if pos_filter_result != 'PASS':
@@ -364,7 +369,8 @@ class MutCall:
 		return np.random.choice(array, len(array) * bootsize, replace=True).reshape(-1, bootsize).mean(axis=0)
 
 	def apply_pos_filter(self, bam, sample, cutoff=0.05, removeFails=True, snp_frequency_cutoff=0.01,
-						 in_read_cutoff=0.1, min_base_quality=30, min_mapping_quality=10, log_loc='snp_filter_log.log'):
+						 in_read_cutoff=0, min_base_quality=30, min_mapping_quality=10, log_loc='snp_filter_log.log', 
+						 adjust_freq=True, method='bootstrap'):
 		'''given pysam alignment object and relevent sample, determine whether average
 		in-read positions for ref and alt alleles come from different distributions.
 		If so, it sets that sample's minority allele read ct to 0 (since these are presumed to be alignment errors).
@@ -403,18 +409,18 @@ class MutCall:
 		elif (len(positions[self.ref.upper()]) <= 1) or (len(positions[self.alt.upper()]) <= 1):
 			p_value = 1  # Can't do pvalue calc on one position
 		else:
-			ref_positions = self.bootstrap(np.array(positions[self.ref.upper()]), int(1 / cutoff) + 1)
-			alt_positions = self.bootstrap(np.array(positions[self.alt.upper()]), int(1 / cutoff) + 1)
+			if method == 'bootstrap':
+				ref_positions = self.bootstrap(np.array(positions[self.ref.upper()]), int(1 / cutoff) + 1)
+				alt_positions = self.bootstrap(np.array(positions[self.alt.upper()]), int(1 / cutoff) + 1)
 
-			bigger_than_pvalue = np.mean(ref_positions > alt_positions)
-			less_than_pvalue = np.mean(ref_positions < alt_positions)
-			p_value = min(bigger_than_pvalue, less_than_pvalue)
-			# p_value = np.mean(np.abs(ref_positions-alt_positions) < 0.05)
-			# print(p_value)
-			# tstat, p_value = stats.mannwhitneyu(ref_positions, alt_positions)
-
-			# tstat, p_value = stats.mannwhitneyu(upsampled_ref, upsampled_alt)
-			# tstat, p_value = stats.ttest_ind(positions[self.ref.upper()], positions[self.alt.upper()],equal_var=False)
+				bigger_than_pvalue = np.mean(ref_positions > alt_positions)
+				less_than_pvalue = np.mean(ref_positions < alt_positions)
+				p_value = min(bigger_than_pvalue, less_than_pvalue)*2
+			
+			elif method=='mann-whitney':
+				tstat, p_value = stats.mannwhitneyu(positions[self.ref.upper()], positions[self.alt.upper()])
+			elif method=='t-test':
+				tstat, p_value = stats.ttest_ind(positions[self.ref.upper()], positions[self.alt.upper()], equal_var=False)
 
 		sampmut.avg_ref_pos = avg_ref_pos
 		sampmut.avg_alt_pos = avg_alt_pos
@@ -425,11 +431,12 @@ class MutCall:
 		# Read position logic:
 		# If the positions are significantly different and are separated by a distinct amount, the mutation is not valid.
 		# If the positions are not significantly different but they are on average
-		# within last 10% of end of read, the mutation is not valid.
+		# within last {location cutoff} of end of read, the mutation is not valid.
 
 		sig_diff_pos_from_major_allele = (p_value < cutoff)
+		too_close_to_end_of_read = avg_alt_pos < in_read_cutoff
 
-		if sig_diff_pos_from_major_allele:
+		if sig_diff_pos_from_major_allele or too_close_to_end_of_read:
 			sampmut.position_filter = 'FAIL'
 			with open(log_loc, 'a') as log:
 				print (f'For sample {sample}, mutation {self.chrom.split("_")[-1]} {self.pos} failed read position filter.', file=log)
@@ -442,7 +449,7 @@ class MutCall:
 				print (f'Avg ref position: {np.round(avg_ref_pos,3)}(n={len(positions[self.ref.upper()])}). Avg alt position: {np.round(avg_alt_pos,3)}(n={len(positions[self.alt.upper()])}).')
 				print (f'Read location cutoff was {np.round(location_cutoff, 4)}. p-value {p_value} is less than cutoff {cutoff}.')
 
-			if removeFails:
+			if removeFails and adjust_freq:
 				if sampmut.RD > sampmut.AD:
 					sampmut.zeroOut()
 				elif sampmut.RD <= sampmut.AD:
@@ -456,6 +463,8 @@ class MutCall:
 					sampmut.RDF = 0
 					sampmut.RDR = 0
 					sampmut.update()
+			elif removeFails:
+				sampmut.zeroOut()
 
 		else:
 			sampmut.position_filter = 'PASS'

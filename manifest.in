@@ -1,0 +1,3 @@
+recursive-exclude __pycache__, .vscode, .git
+prune __pycache__, .vscode, .git
+exclude .git_ignore, workspace.code-workspace

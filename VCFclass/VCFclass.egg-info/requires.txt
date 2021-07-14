@@ -1,0 +1,5 @@
+tqmd
+numpy
+pandas
+Bio
+pysam
